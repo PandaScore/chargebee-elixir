@@ -39,6 +39,10 @@ defmodule ChargebeeElixir.Resource do
         )[@resource]
       end
 
+      def update(id, params, path \\ "") do
+        Interface.post("#{resource_path(id)}#{path}", params)[@resource]
+      end
+
       def resource_base_path() do
         "/#{@resource}s"
       end
