@@ -1,4 +1,13 @@
 defmodule ChargebeeElixir.Interface do
+  @moduledoc """
+  A low level http interface for interacting with Chargebee V2 HTTP Endpoints
+
+  Configuration:
+   - Authorization loaded from `:chargebee_elixir, :api_key`
+   - Chargebee namespace scoping loaded from `:chargebee_elixir, :namespace`
+   - Alternative HTTP Clients configured from `:chargebee_elixir, :http_client` (i.e. in testing)
+  """
+  alias Plug.Conn.Query
 
   def get(path) do
     get(path, %{})

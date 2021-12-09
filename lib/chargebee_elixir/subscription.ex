@@ -1,4 +1,7 @@
 defmodule ChargebeeElixir.Subscription do
+  @moduledoc """
+  an interface for interacting with Subscriptions
+  """
   use ChargebeeElixir.Resource, "subscription"
 
   def create_for_customer(customer_id, params) do
