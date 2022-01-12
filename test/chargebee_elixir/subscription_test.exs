@@ -26,7 +26,7 @@ defmodule ChargebeeElixir.SubscriptionTest do
           assert url ==
                    "https://test-namespace.chargebee.com/api/v2/customers/cus_1/subscriptions"
 
-          assert data == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
+          assert URI.decode(data) == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
 
           assert headers == [
                    {"Authorization", "Basic dGVzdF9jaGFyZ2VlYmVlX2FwaV9rZXk6"},
@@ -52,7 +52,7 @@ defmodule ChargebeeElixir.SubscriptionTest do
           assert url ==
                    "https://test-namespace.chargebee.com/api/v2/customers/cus_1/subscriptions"
 
-          assert data == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
+          assert URI.decode(data) == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
 
           assert headers == [
                    {"Authorization", "Basic dGVzdF9jaGFyZ2VlYmVlX2FwaV9rZXk6"},
@@ -78,7 +78,7 @@ defmodule ChargebeeElixir.SubscriptionTest do
           assert url ==
                    "https://test-namespace.chargebee.com/api/v2/customers/cus_1/subscriptions"
 
-          assert data == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
+          assert URI.decode(data) == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
 
           assert headers == [
                    {"Authorization", "Basic dGVzdF9jaGFyZ2VlYmVlX2FwaV9rZXk6"},
@@ -105,7 +105,7 @@ defmodule ChargebeeElixir.SubscriptionTest do
           assert url ==
                    "https://test-namespace.chargebee.com/api/v2/customers/cus_1/subscriptions"
 
-          assert data == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
+          assert URI.decode(data) == "addons[id][0]=addon-a&addons[id][1]=addon-b&plan_id=plan-a"
 
           assert headers == [
                    {"Authorization", "Basic dGVzdF9jaGFyZ2VlYmVlX2FwaV9rZXk6"},

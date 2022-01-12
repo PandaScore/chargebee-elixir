@@ -28,7 +28,7 @@ defmodule ChargebeeElixir.Interface do
   def post(path, data) do
     body =
       data
-      |> transform_arrays_for_chargebee
+      |> serialize()
       |> Query.encode()
 
     http_client().post!(
@@ -86,46 +86,39 @@ defmodule ChargebeeElixir.Interface do
     ]
   end
 
-  def transform_arrays_for_chargebee(map_data) when is_map(map_data) do
-    map_data
-    |> Enum.map(fn {k, v} ->
-      {k, transform_arrays_for_chargebee(v)}
+  # serialize/3 is a 1:1 adaptation of Chargebee-Ruby `Chargebee::Util.serialize/3`
+  # from https://github.com/chargebee/chargebee-ruby/blob/42f4aa5e58d5760d9f66d3aff02f8389faa6e68f/lib/chargebee/util.rb#L5
+  def serialize(value, prefix \\ nil, index \\ nil)
+
+  def serialize(value, prefix, index) when is_map(value) do
+    Enum.flat_map(value, fn
+      {k, v} when is_map(v) or is_list(v) ->
+        serialize(v, k)
+
+      {k, v} ->
+        pt1 = if is_nil(prefix), do: to_string(k), else: "#{prefix}[#{k}]"
+        pt3 = if is_nil(index), do: "", else: "[#{index}]"
+
+        key = pt1 <> pt3
+        [{key, to_string(v)}]
     end)
-    |> Enum.into(%{})
+    |> Map.new()
   end
 
-  def transform_arrays_for_chargebee(list_data) when is_list(list_data) do
-    transformed_list_data =
-      list_data
-      |> Enum.map(fn item -> transform_arrays_for_chargebee(item) end)
-
-    transformed_list_data
-    |> Enum.map(fn item ->
-      case item do
-        map_item when is_map(map_item) ->
-          Map.keys(map_item)
-
-        _ ->
-          raise ChargebeeElixir.IncorrectDataFormatError,
-            message: "Unsupported data: lists should contains objects only"
-      end
-    end)
-    |> List.flatten()
-    |> Enum.uniq()
-    |> Enum.map(fn key ->
-      {
-        key,
-        transformed_list_data
-        |> Enum.with_index()
-        |> Enum.map(fn {item, index} -> {index, item[key]} end)
-        |> Enum.filter(fn {_index, item} -> !is_nil(item) end)
-        |> Enum.into(%{})
-      }
-    end)
-    |> Enum.into(%{})
+  def serialize(value, prefix, _index) when is_list(value) do
+    value
+    |> Enum.with_index()
+    |> Enum.flat_map(fn {item, i} -> serialize(item, prefix, i) end)
+    |> Map.new()
   end
 
-  def transform_arrays_for_chargebee(other_data) do
-    other_data
+  def serialize(_value, nil, nil) do
+    raise ArgumentError, "Only hash or arrays are allowed as value"
+  end
+
+  def serialize(value, prefix, index) do
+    key = "#{prefix}[#{index}]"
+
+    [{key, value}]
   end
 end

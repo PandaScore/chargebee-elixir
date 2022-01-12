@@ -12,7 +12,7 @@ defmodule ChargebeeElixir.HostedPageTest do
         fn url, data, headers ->
           assert url == "https://test-namespace.chargebee.com/api/v2/hosted_pages/checkout_new"
 
-          assert data ==
+          assert URI.decode(data) ==
                    "addons[id][0]=addon-a&addons[id][1]=addon-b&subscription[plan_id]=plan-a"
 
           assert headers == [
@@ -48,7 +48,7 @@ defmodule ChargebeeElixir.HostedPageTest do
           assert url ==
                    "https://test-namespace.chargebee.com/api/v2/hosted_pages/checkout_existing"
 
-          assert data ==
+          assert URI.decode(data) ==
                    "addons[id][0]=addon-a&addons[id][1]=addon-b&customer[id]=cus-a&subscription[id]=subscription-a&subscription[plan_id]=plan-a"
 
           assert headers == [

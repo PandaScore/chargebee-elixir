@@ -60,7 +60,9 @@ defmodule ChargebeeElixir.PortalSessionTest do
         :post!,
         fn url, data, headers ->
           assert url == "https://test-namespace.chargebee.com/api/v2/portal_sessions"
-          assert data == "customer[id]=cus_1234&redirect_url=https%3A%2F%2Fredirect.com"
+
+          assert URI.decode(data) ==
+                   "customer[id]=cus_1234&redirect_url=https://redirect.com"
 
           assert headers == [
                    {"Authorization", "Basic dGVzdF9jaGFyZ2VlYmVlX2FwaV9rZXk6"},
