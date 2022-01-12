@@ -93,7 +93,8 @@ defmodule ChargebeeElixir.Interface do
   def serialize(value, prefix, index) when is_map(value) do
     Enum.flat_map(value, fn
       {k, v} when is_map(v) or is_list(v) ->
-        serialize(v, k)
+        pre = if is_nil(prefix), do: to_string(k), else: "#{prefix}[#{k}]"
+        serialize(v, pre)
 
       {k, v} ->
         pt1 = if is_nil(prefix), do: to_string(k), else: "#{prefix}[#{k}]"

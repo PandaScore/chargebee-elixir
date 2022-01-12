@@ -14,7 +14,7 @@ defmodule ChargebeeElixir.CouponTest do
       expect(
         ChargebeeElixir.HTTPoisonMock,
         :post!,
-        fn url, data, headers ->
+        fn url, data, _headers ->
           assert url ==
                    "https://test-namespace.chargebee.com/api/v2/coupons/create_for_items"
 
@@ -28,7 +28,7 @@ defmodule ChargebeeElixir.CouponTest do
         end
       )
 
-      assert ChargebeeElixir.Coupon.create_for_items(%{
+      assert Coupon.create_for_items(%{
                id: "summer_offer",
                name: "Summer Offer",
                discount_percentage: 10.0,
@@ -43,12 +43,12 @@ defmodule ChargebeeElixir.CouponTest do
       expect(
         ChargebeeElixir.HTTPoisonMock,
         :post!,
-        fn url, data, headers ->
+        fn url, data, _headers ->
           assert url ==
                    "https://test-namespace.chargebee.com/api/v2/coupons/create_for_items"
 
           assert URI.decode(data) ==
-            "apply_on=each_specified_item&discount_percentage=10.0&discount_type=percentage&duration_type=forever&id=summer_offer&item_constraints[constraint][0]=specific&item_constraints[item_type][0]=plan&item_price_ids[0]=item_1&name=Summer+Offer"
+                   "apply_on=each_specified_item&discount_percentage=10.0&discount_type=percentage&duration_type=forever&id=summer_offer&item_constraints[constraint][0]=specific&item_constraints[item_price_ids][0]=item_1&item_constraints[item_type][0]=plan&name=Summer+Offer"
 
           %{
             status_code: 200,
@@ -57,7 +57,7 @@ defmodule ChargebeeElixir.CouponTest do
         end
       )
 
-      assert ChargebeeElixir.Coupon.create_for_items(%{
+      assert Coupon.create_for_items(%{
                id: "summer_offer",
                name: "Summer Offer",
                discount_percentage: 10.0,

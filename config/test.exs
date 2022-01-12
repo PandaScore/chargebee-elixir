@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :chargebee_elixir,
   namespace: "test-namespace",

@@ -19,7 +19,7 @@ defmodule ChargebeeElixir.InterfaceTest do
                    }
                  }
                }
-             }) == %{"addon[id]" => "addon-a", "object[id]" => "object-a"}
+             }) == %{"addon[id]" => "addon-a", "addon[nested][object][id]" => "object-a"}
     end
 
     test "simple nesting" do
@@ -67,8 +67,24 @@ defmodule ChargebeeElixir.InterfaceTest do
                "addons[id][1]" => "addon-b",
                "addons[price][0]" => "10",
                "addons[quantity][1]" => "2",
-               "nested_objects[id][0]" => "object-a",
-               "nested_objects[id][1]" => "object-b"
+               "addons[nested_objects][id][0]" => "object-a",
+               "addons[nested_objects][id][1]" => "object-b"
+             }
+    end
+
+    test "failing complex nesting case" do
+      assert ChargebeeElixir.Interface.serialize(%{
+               item_constraints: [
+                 %{
+                   constraint: "specific",
+                   item_type: "plan",
+                   item_price_ids: ["item_a"]
+                 }
+               ]
+             }) == %{
+               "item_constraints[constraint][0]" => "specific",
+               "item_constraints[item_type][0]" => "plan",
+               "item_constraints[item_price_ids][0]" => "item_a"
              }
     end
   end
