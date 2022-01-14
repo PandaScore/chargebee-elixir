@@ -48,7 +48,7 @@ defmodule ChargebeeElixir.CouponTest do
                    "https://test-namespace.chargebee.com/api/v2/coupons/create_for_items"
 
           assert URI.decode(data) ==
-                   "apply_on=each_specified_item&discount_percentage=10.0&discount_type=percentage&duration_type=forever&id=summer_offer&item_constraints[constraint][0]=specific&item_constraints[item_price_ids][0]=item_1&item_constraints[item_type][0]=plan&name=Summer+Offer"
+                   "apply_on=each_specified_item&discount_percentage=10.0&discount_type=percentage&duration_type=forever&id=summer_offer&item_constraints[constraint][0]=specific&item_constraints[item_price_ids][0]=[\"item_1\"]&item_constraints[item_type][0]=plan&name=Summer+Offer"
 
           %{
             status_code: 200,

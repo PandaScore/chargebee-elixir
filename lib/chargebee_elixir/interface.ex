@@ -7,7 +7,6 @@ defmodule ChargebeeElixir.Interface do
    - Chargebee namespace scoping loaded from `:chargebee_elixir, :namespace`
    - Alternative HTTP Clients configured from `:chargebee_elixir, :http_client` (i.e. in testing)
   """
-  alias Plug.Conn.Query
 
   def get(path) do
     get(path, %{})
@@ -29,7 +28,7 @@ defmodule ChargebeeElixir.Interface do
     body =
       data
       |> serialize()
-      |> Query.encode()
+      |> URI.encode_query()
 
     http_client().post!(
       fullpath(path),
@@ -94,23 +93,34 @@ defmodule ChargebeeElixir.Interface do
     Enum.flat_map(value, fn
       {k, v} when is_map(v) or is_list(v) ->
         pre = if is_nil(prefix), do: to_string(k), else: "#{prefix}[#{k}]"
-        serialize(v, pre)
+        # fix = if is_nil(index), do: "", else: "[#{index}]"
+
+        serialize(v, pre, index)
 
       {k, v} ->
-        pt1 = if is_nil(prefix), do: to_string(k), else: "#{prefix}[#{k}]"
-        pt3 = if is_nil(index), do: "", else: "[#{index}]"
+        pre = if is_nil(prefix), do: to_string(k), else: "#{prefix}[#{k}]"
+        fix = if is_nil(index), do: "", else: "[#{index}]"
 
-        key = pt1 <> pt3
+        key = pre <> fix
         [{key, to_string(v)}]
     end)
     |> Map.new()
   end
 
-  def serialize(value, prefix, _index) when is_list(value) do
+  def serialize(value, prefix, nil) when is_list(value) do
     value
     |> Enum.with_index()
     |> Enum.flat_map(fn {item, i} -> serialize(item, prefix, i) end)
     |> Map.new()
+  end
+
+  # Apparently Second Degree nested arrays are just encoded as json values
+  def serialize(value, prefix, index) when is_list(value) do
+    value = Jason.encode!(value)
+
+    key = "#{prefix}[#{index}]"
+
+    [{key, value}]
   end
 
   def serialize(_value, nil, nil) do
