@@ -155,5 +155,21 @@ defmodule ChargebeeElixir.InterfaceTest do
                |> URI.encode_query()
                |> URI.decode()
     end
+
+    test "drops nil fields" do
+      # from chargebee-ruby test case
+      input = %{
+        :id => "sub_KyVq7DNSNM7CSD",
+        :plan_id => "free",
+        :item_family_id => nil
+      }
+
+      output = %{
+        "id" => "sub_KyVq7DNSNM7CSD",
+        "plan_id" => "free"
+      }
+
+      assert ChargebeeElixir.Interface.serialize(input) == output
+    end
   end
 end
