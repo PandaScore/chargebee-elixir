@@ -3,9 +3,9 @@ defmodule ChargebeeElixir.Interface do
   A low level http interface for interacting with Chargebee V2 HTTP Endpoints
 
   Configuration:
-   - Authorization loaded from `:chargebee_elixir, :api_key`
-   - Chargebee namespace scoping loaded from `:chargebee_elixir, :namespace`
-   - Alternative HTTP Clients configured from `:chargebee_elixir, :http_client` (i.e. in testing)
+   - Authorization loaded from Application env `:chargebee_elixir, :api_key`
+   - Chargebee namespace scoping loaded from  Application env  `:chargebee_elixir, :namespace`
+   - Alternative HTTP Clients configured from  Application env `:chargebee_elixir, :http_client` (i.e. in testing)
   """
 
   def get(path) do

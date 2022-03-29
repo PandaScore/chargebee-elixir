@@ -31,6 +31,7 @@ defmodule ChargebeeElixir.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:inflex, "~> 2.0.0"},
       {:jason, "~> 1.0"},
       {:httpoison, "~> 1.7"},
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},

@@ -5,6 +5,7 @@ defmodule ChargebeeElixir.Resource do
       alias ChargebeeElixir.Interface
 
       @resource unquote(resource)
+      @resource_plural Inflex.pluralize(@resource)
 
       def retrieve(id) do
         id |> resource_path() |> Interface.get() |> Map.get(@resource)
@@ -56,7 +57,7 @@ defmodule ChargebeeElixir.Resource do
       end
 
       def resource_base_path do
-        "/#{@resource}s"
+        "/#{@resource_plural}"
       end
 
       def resource_path(id) do
