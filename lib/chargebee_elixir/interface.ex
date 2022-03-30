@@ -94,6 +94,9 @@ defmodule ChargebeeElixir.Interface do
       {_k, nil} ->
         []
 
+      {k, v} when k in ["metadata", :metadata] and is_map(v) ->
+        [{to_string(k), Jason.encode!(v)}]
+
       {k, v} when is_map(v) or is_list(v) ->
         pre = if is_nil(prefix), do: to_string(k), else: "#{prefix}[#{k}]"
         # fix = if is_nil(index), do: "", else: "[#{index}]"

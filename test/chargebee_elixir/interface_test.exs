@@ -171,5 +171,13 @@ defmodule ChargebeeElixir.InterfaceTest do
 
       assert ChargebeeElixir.Interface.serialize(input) == output
     end
+
+    test "serializes metadata as encoded json" do
+      input = %{metadata: %{some: "value"}}
+
+      output = %{"metadata" => ~S({"some":"value"})}
+
+      assert ChargebeeElixir.Interface.serialize(input) == output
+    end
   end
 end
