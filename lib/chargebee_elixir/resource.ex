@@ -61,7 +61,7 @@ defmodule ChargebeeElixir.Resource do
       end
 
       def resource_path(id) do
-        "#{resource_base_path()}/#{id}"
+        "#{resource_base_path()}/#{URI.encode(id)}"
       end
     end
   end
