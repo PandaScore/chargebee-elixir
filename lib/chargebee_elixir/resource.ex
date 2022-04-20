@@ -1,7 +1,7 @@
 defmodule ChargebeeElixir.Resource do
   @moduledoc false
   defmacro __using__(resource) do
-    quote do
+    quote location: :keep do
       alias ChargebeeElixir.Interface
 
       @resource unquote(resource)
@@ -61,7 +61,9 @@ defmodule ChargebeeElixir.Resource do
       end
 
       def resource_path(id) do
-        "#{resource_base_path()}/#{URI.encode(id)}"
+        encoded_id = id |> to_string |> URI.encode()
+
+        "#{resource_base_path()}/#{encoded_id}"
       end
     end
   end
