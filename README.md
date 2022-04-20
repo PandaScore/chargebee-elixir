@@ -3,7 +3,7 @@
 
 Elixir implementation of [Chargebee API](https://apidocs.chargebee.com/docs/api).
 
-## v0.1.1
+## v0.2.0
 This is a work in progress: right now, we only implement those methods:
 - list
 - retrieve
@@ -11,17 +11,21 @@ This is a work in progress: right now, we only implement those methods:
 
 on those resources:
 - addon
+- coupon_code
+- coupon_set
 - customer
+- event
+- gift
 - hosted_page
-  - also checkout_new
-  - also checkout_existing
-- subscription
-  - also create_for_customer
+- invoice
+- item_family
+- item_price
+- item
+- payment_intent
+- payment_source
 - plan
 - portal_session
 - subscription
-- invoice
-  - also close
 
 ## Installation
 The package can be installed by adding `chargebee_elixir` to your list of dependencies in `mix.exs`:
