@@ -3,4 +3,8 @@ defmodule ChargebeeElixir.Customer do
   an interface for interacting with Customers
   """
   use ChargebeeElixir.Resource, "customer"
+
+  def merge(args) do
+    create(args, "/merge")
+  end
 end
