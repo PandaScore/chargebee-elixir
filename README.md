@@ -53,3 +53,8 @@ ChargebeeElixir.Plan.list()
 ```sh
 mix test
 ```
+
+## Publish
+```
+mix hex.publish
+```
