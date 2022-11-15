@@ -3,7 +3,7 @@
 
 Elixir implementation of [Chargebee API](https://apidocs.chargebee.com/docs/api).
 
-## v0.1.1
+## v0.1.4
 This is a work in progress: right now, we only implement those methods:
 - list
 - retrieve
@@ -22,6 +22,7 @@ on those resources:
 - subscription
 - invoice
   - also close
+  - also import_invoice
 
 ## Installation
 The package can be installed by adding `chargebee_elixir` to your list of dependencies in `mix.exs`:
@@ -29,7 +30,7 @@ The package can be installed by adding `chargebee_elixir` to your list of depend
 ```elixir
 def deps do
   [
-    {:chargebee_elixir, "~> 0.1.3"}
+    {:chargebee_elixir, "~> 0.1.4"}
   ]
 end
 ```
@@ -51,9 +52,4 @@ ChargebeeElixir.Plan.list()
 ## Run tests
 ```sh
 mix test
-```
-
-## Generate doc tests
-```sh
-sh generate_doc.sh
 ```
