@@ -27,13 +27,14 @@ on those resources:
 - portal_session
 - subscription
 
+
 ## Installation
 The package can be installed by adding `chargebee_elixir` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:chargebee_elixir, "~> 0.1.3"}
+    {:chargebee_elixir, "~> 0.2.0"}
   ]
 end
 ```
@@ -57,7 +58,7 @@ ChargebeeElixir.Plan.list()
 mix test
 ```
 
-## Generate doc tests
-```sh
-sh generate_doc.sh
+## Publish
+```
+mix hex.publish
 ```
