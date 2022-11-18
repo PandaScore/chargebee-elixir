@@ -1,7 +1,14 @@
 defmodule ChargebeeElixir.Invoice do
+  @moduledoc """
+  an interface for interacting with Invoices
+  """
   use ChargebeeElixir.Resource, "invoice"
-  def close(id, params \\ %{}) do post_endpoint(id, "/close", params) end
-  def import_invoice(params \\ %{}) do create(params, "/import_invoice") end
-end
 
-  
+  def import_invoice(params \\ %{}) do 
+    create(params, "/import_invoice") 
+  end
+
+  def close(id, params \\ %{}) do
+    post_resource(id, "/close", params)
+  end
+end
