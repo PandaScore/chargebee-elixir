@@ -9,12 +9,12 @@ defmodule ChargebeeElixir.MixProject do
       package: %{
         licenses: ["MIT"],
         links: %{
-          github: "https://github.com/NicolasMarlier/chargebee-elixir"
+          github: "https://github.com/PandaScore/chargebee-elixir"
         }
       },
-      source_url: "https://github.com/NicolasMarlier/chargebee-elixir",
-      homepage_url: "https://github.com/NicolasMarlier/chargebee-elixir",
-      version: "0.1.4",
+      source_url: "https://github.com/PandaScore/chargebee-elixir",
+      homepage_url: "https://github.com/PandaScore/chargebee-elixir",
+      version: "0.1.5",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps()

@@ -3,7 +3,7 @@
 
 Elixir implementation of [Chargebee API](https://apidocs.chargebee.com/docs/api).
 
-## v0.1.4
+## v0.1.5
 This is a work in progress: right now, we only implement those methods:
 - list
 - retrieve
@@ -30,7 +30,7 @@ The package can be installed by adding `chargebee_elixir` to your list of depend
 ```elixir
 def deps do
   [
-    {:chargebee_elixir, "~> 0.1.4"}
+    {:chargebee_elixir, "~> 0.1.5"}
   ]
 end
 ```
